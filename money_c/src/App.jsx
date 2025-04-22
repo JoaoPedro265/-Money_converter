@@ -5,8 +5,9 @@ function App() {
   const [value, setValue] = useState(""); //valor digitado
   const [selectcurrency, setSelectcurrency] = useState("USD"); //moeda a ser convertida
   const [result, setResult] = useState(null); //valor da conversao
-  console.log(selectcurrency);
   const currency = async () => {
+    console.log(value);
+    console.log(selectcurrency);
     try {
       const response = await fetch(
         `https://api.exchangerate-api.com/v4/latest/${selectcurrency}`
@@ -14,6 +15,7 @@ function App() {
       const data = await response.json();
       let value_formated = data.rates.BRL * value;
       let value_int = Number(value_formated.toFixed(2));
+
       setResult(value_int);
     } catch (error) {
       console.error("Erro ao buscar taxas:", error);

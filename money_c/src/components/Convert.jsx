@@ -34,7 +34,7 @@ function Convert({
       </select>
       <br />
       <button onClick={currency}>Calcular</button>
-      <h2>{`${value}`} R$</h2>
+      <h2>{`${value}`}R$</h2>
       <br />=<h2>{`${result}  ${selectcurrency}`}</h2>
     </div>
   );
