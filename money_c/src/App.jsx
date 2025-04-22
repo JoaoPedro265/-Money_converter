@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Convert from "./components/Convert";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [value, setValue] = useState(""); //valor digitado
+  const [selectcurrency, setSelectcurrency] = useState("USD"); //moeda a ser convertida
+  const [result, setResult] = useState(null); //valor da conversao
+  console.log(selectcurrency);
+  const currency = async () => {
+    try {
+      const response = await fetch(
+        `https://api.exchangerate-api.com/v4/latest/${selectcurrency}`
+      );
+      const data = await response.json();
+      let value_formated = data.rates.BRL * value;
+      let value_int = Number(value_formated.toFixed(2));
+      setResult(value_int);
+    } catch (error) {
+      console.error("Erro ao buscar taxas:", error);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Convert
+      {...{
+        value,
+        setValue,
+        currency,
+        selectcurrency,
+        setSelectcurrency,
+        result,
+      }}
+    />
+  );
 }
 
-export default App
+export default App;
