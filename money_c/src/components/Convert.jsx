@@ -1,3 +1,13 @@
+import Card from "@mui/material/Card";
+import {
+  TextField,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
+
 function Convert({
   click,
   value,
@@ -9,34 +19,64 @@ function Convert({
   setResult,
 }) {
   return (
-    <div className="card">
-      <h1>Conversor de Moedas</h1>
-      valor:
-      <input
-        type="text"
+    <Card
+      variant="outlined"
+      sx={{
+        width: 350,
+        margin: "100px auto",
+        padding: 3,
+        borderRadius: 4,
+        boxShadow: 5,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 2, // espaço entre os itens
+      }}
+    >
+      <h1 style={{ marginBottom: 20 }}>Conversor de Moedas</h1>
+
+      <TextField
+        fullWidth
+        required
+        label="Valor em R$"
+        type="number"
         value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
+        onChange={(e) => setValue(e.target.value)}
       />
-      R$ ====
-      <select
-        type="text"
-        onChange={(e) => {
-          setSelectcurrency(e.target.value);
-        }}
+
+      <FormControl fullWidth>
+        <InputLabel id="select-currency-label">Moeda</InputLabel>
+        <Select
+          labelId="select-currency-label"
+          id="select-currency"
+          value={selectcurrency}
+          label="Moeda"
+          onChange={(e) => setSelectcurrency(e.target.value)}
+        >
+          <MenuItem value="USD">Dólar (USD)</MenuItem>
+          <MenuItem value="EUR">Euro (EUR)</MenuItem>
+          <MenuItem value="GBP">Libra (GBP)</MenuItem>
+          <MenuItem value="JPY">Iene (JPY)</MenuItem>
+          <MenuItem value="AUD">Dólar Australiano (AUD)</MenuItem>
+        </Select>
+      </FormControl>
+
+      <Button
+        onClick={currency}
+        variant="contained"
+        color="primary"
+        sx={{ mt: 2 }}
+        fullWidth
       >
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="GBP">GBP</option>
-        <option value="JPY">JPY</option>
-        <option value="AUD">AUD</option>
-      </select>
-      <br />
-      <button onClick={currency}>Calcular</button>
-      <h2>{`${value}`}R$</h2>
-      <br />=<h2>{`${result}  ${selectcurrency}`}</h2>
-    </div>
+        Converter
+      </Button>
+
+      <div style={{ marginTop: 20, textAlign: "center" }}>
+        <h2>{`${value || 0}`} R$</h2>
+        <h3>=</h3>
+        <h2>{`${result || 0} ${selectcurrency || ""}`}</h2>
+      </div>
+    </Card>
   );
 }
 
