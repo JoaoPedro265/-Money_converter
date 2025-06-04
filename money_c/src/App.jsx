@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Convert from "./components/Convert";
+const apiUrl = import.meta.env.VITE_URL_API; //importando variaveis de ambiente
 
 function App() {
   const [value, setValue] = useState(""); //valor digitado
@@ -9,9 +10,7 @@ function App() {
     console.log(value);
     console.log(selectcurrency);
     try {
-      const response = await fetch(
-        `https://api.exchangerate-api.com/v4/latest/${selectcurrency}`
-      );
+      const response = await fetch(`${apiUrl}/latest/${selectcurrency}`);
       const data = await response.json();
       let value_formated = data.rates.BRL * value;
       let value_int = Number(value_formated.toFixed(2));
