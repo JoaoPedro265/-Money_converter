@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Convert from "./components/Convert";
-const apiUrl = import.meta.env.VITE_URL_API; //importando variaveis de ambiente
+const apiUrl = import.meta.env.VITE_API_URL; //importando variaveis de ambiente
 
 function App() {
   const [value, setValue] = useState(""); //valor digitado

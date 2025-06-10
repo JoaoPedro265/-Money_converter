@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  app: # Nome do serviço (você pode chamar de "frontend" ou "react_app" se quiser)
+    image: "meu_app"  # Nome da imagem gerada
+    build:
+      context: .  # pasta onde está o Dockerfile
+      args:
+        VITE_API_URL: "https://api.exchangerate-api.com/v4" # Usado no momento do build (construção da imagem)
+    environment:
+      - VITE_API_URL=https://api.exchangerate-api.com/v4
+    ports:
+      - "5173:5173" # Porta local:porta do container
+    command: ["yarn", "dev", "--host"] #diz ao Docker o que executar quando o container for iniciado.
+
+#docker-compose up --build
+
+
+
+#docker ps -a
+#docker stop (nome/id)
+#docker rm (id) remover
